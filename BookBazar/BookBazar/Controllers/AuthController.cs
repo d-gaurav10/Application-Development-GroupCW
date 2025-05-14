@@ -14,22 +14,25 @@ namespace BookBazzar.Controllers
         {
             _authService = authService;
         }
-
-        [HttpPost("register")]
-        public async Task<IActionResult> Register(UserRegisterDTO dto)
-        {
-            var result = await _authService.Register(dto);
-            return Ok(new { message = result });
-        }
+            [HttpPost("register")]
+            public async Task<IActionResult> Register(UserRegisterDTO dto)
+            {
+                Console.WriteLine($"Received registration request for role: {dto.Role}");
+                var result = await _authService.Register(dto);
+                return Ok(new { message = result });
+            }
 
         [HttpPost("login")]
         public IActionResult Login(UserLoginDTO dto)
         {
-            var token = _authService.Login(dto);
-            if (token == null)
+            var result = _authService.Login(dto);
+            if (result == null)
                 return Unauthorized(new { message = "Invalid credentials" });
 
-            return Ok(new { token });
+            // ✅ Return the object your service already built:
+            //      { token: "<jwt-string>", userDetails: { ... } }
+            return Ok(result);
         }
+
     }
 }

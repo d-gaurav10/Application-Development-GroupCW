@@ -1,77 +1,66 @@
-import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
-import jwt_decode from 'jwt-decode'
-import Login from './pages/Login'
-import Home from './pages/Home'
-import AdminDashboard from './pages/AdminDashboard'
+import React from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { CartProvider } from './pages/CartContext';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import Login from './pages/Login';
+import Home from './pages/Home';
+import Register from './pages/Register';
+import AdminDashboard from './pages/AdminDashboard';
+import Cart from './pages/Cart';
+import ProtectedRoute from './components/ProtectedRoute';
+import AdminRoute from './components/AdminRoute';
+import StaffRoute from './components/StaffRoute';
+import StaffDashboard from './pages/StaffDashboard';
+import Booking from './pages/Booking';
+import OrderSummary from './pages/OrderSummary';
+import ProductPage from './pages/ProductPage';
+import BookOverview from './components/BookOverview';
+import ProfileSettings from './components/ProfileSettings';
 
 const App = () => {
-  const [userRole, setUserRole] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    const checkAuth = () => {
-      const token = localStorage.getItem('token')
-      if (!token) {
-        setLoading(false)
-        return
-      }
-
-      try {
-        const decoded = jwt_decode(token)
-        const role = decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']
-        setUserRole(role)
-      } catch (error) {
-        localStorage.removeItem('token')
-      }
-      setLoading(false)
-    }
-
-    checkAuth()
-  }, [])
-
-  const ProtectedRoute = ({ children, allowedRoles }) => {
-    if (loading) return <div>Loading...</div>
-    
-    if (!localStorage.getItem('token')) {
-      return <Navigate to="/login" replace />
-    }
-
-    return allowedRoles.includes(userRole) ? children : <Navigate to="/" replace />
-  }
-
   return (
-    <Routes>
-      <Route path="/login" element={<Login />} />
+    <>
+      <CartProvider>
+        <ToastContainer />
+        <Routes>
+          {/* Public Routes */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/products" element={<ProductPage />} /> {/* Add this route */}
 
-      <Route path="/home" element={
-        <ProtectedRoute allowedRoles={['Member', 'Staff']}>
-          <Home />
-        </ProtectedRoute>
-      } />
+          {/* Protected Routes */}
+          <Route element={<ProtectedRoute />}>
+            <Route path="/home" element={<Home />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/booking" element={<Booking />} />
+            <Route path="/ordersummary" element={<OrderSummary />} />
+            <Route path="/book/:bookId" element={<BookOverview />} />
+            <Route path="/profile" element={<ProfileSettings />} />
+            
+          </Route>
 
-      <Route path="/admin" element={
-        <ProtectedRoute allowedRoles={['Admin']}>
-          <AdminDashboard />
-        </ProtectedRoute>
-      } />
+           {/* Staff Routes */}
+          <Route element={<StaffRoute />}>
+            <Route path="/staff" element={<StaffDashboard />} />
+            <Route path="/staff/pending-orders" element={<StaffDashboard />} />
+          </Route>
 
-      <Route path="/" element={
-        localStorage.getItem('token') ? (
-          userRole === 'Admin' ? (
-            <Navigate to="/admin" replace />
-          ) : (
-            <Navigate to="/home" replace />
-          )
-        ) : (
-          <Navigate to="/login" replace />
-        )
-      } />
+          {/* Admin Routes */}
+          <Route element={<AdminRoute />}>
+            <Route path="/admin/*" element={<AdminDashboard />} />
+          </Route>
 
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
-  )
-}
+          {/* Default Route */}
+          <Route path="/" element={<Navigate to="/login" replace />} />
+
+          {/* Catch-all for unknown routes */}
+          <Route path="*" element={<Navigate to="/login" replace />} />
+        </Routes>
+      </CartProvider>
+    </>
+  );
+};
 
 export default App;

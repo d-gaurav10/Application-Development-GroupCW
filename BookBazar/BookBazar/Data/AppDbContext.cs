@@ -11,25 +11,19 @@ namespace BookBazzar.Data
         public DbSet<Book> Books { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Publisher> Publishers { get; set; }
-
         public DbSet<CartItem> CartItems { get; set; }
-
         public DbSet<Order> Orders { get; set; }
-
         public DbSet<OrderItem> OrderItems { get; set; }
-
         public DbSet<Review> Reviews { get; set; }
-
         public DbSet<Whitelist> Whitelists { get; set; }
-        
         public DbSet<Announcement> Announcements { get; set; }
-
+        public DbSet<DiscountCode> DiscountCodes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            // Configure relationships
+            // Relationships
             modelBuilder.Entity<Book>()
                 .HasOne(b => b.Category)
                 .WithMany(c => c.Books)
@@ -40,11 +34,19 @@ namespace BookBazzar.Data
                 .WithMany(p => p.Books)
                 .HasForeignKey(b => b.PublisherId);
 
-
             modelBuilder.Entity<Whitelist>()
                 .HasIndex(w => new { w.UserId, w.BookId })
                 .IsUnique();
 
+            modelBuilder.Entity<CartItem>()
+                .HasOne(c => c.Book)
+                .WithMany()
+                .HasForeignKey(c => c.BookId);
+
+            modelBuilder.Entity<CartItem>()
+                .HasOne(c => c.User)
+                .WithMany()
+                .HasForeignKey(c => c.UserId);
 
             // Seed Categories
             modelBuilder.Entity<Category>().HasData(
@@ -57,18 +59,6 @@ namespace BookBazzar.Data
                 new Category { Id = 7, Name = "Biography" },
                 new Category { Id = 8, Name = "Children" }
             );
-
-
-            modelBuilder.Entity<CartItem>()
-                .HasOne(c => c.Book)
-                .WithMany()
-                .HasForeignKey(c => c.BookId);
-
-            modelBuilder.Entity<CartItem>()
-                .HasOne(c => c.User)
-                .WithMany()
-                .HasForeignKey(c => c.UserId);
-
 
             // Seed Publishers
             modelBuilder.Entity<Publisher>().HasData(

@@ -1,0 +1,181 @@
+/* page wrapper */
+.bo-page {
+  padding: 32px;
+  font-family: Inter, sans-serif;
+  color: #1F2A48;
+}
+
+/* loading */
+.bo-loading {
+  padding: 32px;
+  text-align: center;
+}
+
+/* page title */
+.bo-title {
+  font-size: 1.75rem;
+  margin-bottom: 24px;
+  font-weight: 600;
+}
+
+/* main content layout */
+.bo-main {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+/* left: cover */
+.bo-left {
+  flex: 1;
+}
+.bo-cover {
+  width: 100%;
+  border-radius: 8px;
+  max-width: 300px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* middle: details card */
+.bo-details {
+  flex: 2;
+}
+.bo-details-card {
+  border: 1px solid #ccc;
+  padding: 24px;
+  border-radius: 8px;
+  background: #fff;
+}
+.bo-details-card h2 {
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+}
+.bo-desc {
+  color: #555;
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+.bo-meta-list {
+  list-style: none;
+}
+.bo-meta-list li {
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+/* right: purchase box */
+.bo-purchase {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* stock card */
+.bo-stock-card {
+  border: 1px solid #ccc;
+  padding: 16px;
+  border-radius: 8px;
+  background: #fff;
+}
+.bo-stock-card div {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.bo-available {
+  color: green;
+  font-weight: 600;
+}
+.bo-sold {
+  color: red;
+  font-weight: 600;
+}
+
+/* order card */
+.bo-order-card {
+  border: 1px solid #ccc;
+  padding: 16px;
+  border-radius: 8px;
+  background: #fff;
+}
+.bo-qty-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.bo-qty-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.bo-qty-controls button {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #ccc;
+  background: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1.25rem;
+}
+.bo-price {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* buttons */
+.bo-btn {
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  width: 100%;
+}
+.bo-btn-primary {
+  background: #3fc79a;
+  color: white;
+}
+.bo-btn-secondary {
+  background: #3fc79a;
+  color: white;
+  opacity: 0.9;
+}
+
+/* divider */
+.bo-divider {
+  margin: 32px 0;
+  border: none;
+  border-top: 1px solid #ccc;
+}
+
+/* similar section */
+.bo-similar h3 {
+  font-size: 1.25rem;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+.bo-similar-grid {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+}
+.bo-sim-card {
+  min-width: 120px;
+  cursor: pointer;
+  text-align: center;
+}
+.bo-sim-card img {
+  width: 100%;
+  border-radius: 6px;
+  margin-bottom: 8px;
+}
+.bo-sim-card h4 {
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+}
+.bo-sim-card p {
+  font-size: 0.85rem;
+  color: #555;
+}

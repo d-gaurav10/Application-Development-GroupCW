@@ -1,0 +1,144 @@
+.announcement-management {
+  width: 100%;
+}
+
+.announcement-management .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.announcement-management .btn-add {
+  padding: 8px 16px;
+  background-color: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.announcement-management table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.announcement-management th,
+.announcement-management td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.announcement-management th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+}
+
+.announcement-management td {
+  vertical-align: top;
+}
+
+.announcement-management .message-cell {
+  max-width: 300px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.announcement-management .actions {
+  display: flex;
+  gap: 8px;
+}
+
+.announcement-management .btn-delete {
+  padding: 6px 12px;
+  background-color: #dc2626;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.announcement-management .btn-delete:hover {
+  background-color: #b91c1c;
+}
+
+/* Form Modal Styles */
+.announcement-form-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.announcement-form {
+  background: white;
+  padding: 24px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.announcement-form h3 {
+  margin: 0 0 20px 0;
+  color: #333;
+}
+
+.announcement-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.announcement-form label {
+  font-weight: 500;
+  color: #374151;
+}
+
+.announcement-form input,
+.announcement-form textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-top: 4px;
+}
+
+.announcement-form textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.announcement-form .form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.announcement-form button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.announcement-form button[type="submit"] {
+  background-color: #4f46e5;
+  color: white;
+}
+
+.announcement-form button[type="button"] {
+  background-color: #e5e7eb;
+  color: #374151;
+}

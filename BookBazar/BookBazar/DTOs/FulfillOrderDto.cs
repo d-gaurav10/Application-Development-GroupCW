@@ -1,10 +1,14 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace BookBazzar.DTOs
 {
     public class FulfillOrderDto
     {
-        public string ClaimCode { get; set; }
+        [Required]
+        public string ClaimCode { get; set; } = null!;
+
+        [Required]
         public Guid UserId { get; set; }
     }
 }

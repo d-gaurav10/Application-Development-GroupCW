@@ -1,0 +1,183 @@
+.booking-container {
+  width: 100%;
+  margin: 1.5rem 0;
+  padding: 2rem;
+  background: #f8fafc;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  box-sizing: border-box;
+}
+
+.booking-header h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.booking-summary {
+  padding: 1.5rem;
+  background: #ffffff;
+  border-radius: 10px;
+  text-align: right;
+  width: 100%;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.03);
+}
+
+.booking-summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+  color: #4a5568;
+}
+
+.booking-summary-row span:first-child {
+  font-weight: 500;
+}
+
+.booking-summary-row span:last-child {
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.booking-grand-total {
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: #1a202c;
+  padding-top: 0.5rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.booking-coupon-wrapper {
+  margin: 1.25rem 0;
+}
+
+.booking-coupon-input-wrapper {
+  display: flex;
+  justify-content: flex-end; /* Align items to the right */
+  gap: 0.5rem;
+}
+
+.booking-coupon-input {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+  border: 1px solid #cbd5e0;
+  border-radius: 6px;
+  width: 150px; /* Reduced from 180px to make it slightly smaller */
+  color: #2d3748;
+  transition: border-color 0.2s ease;
+}
+
+.booking-coupon-input:focus {
+  outline: none;
+  border-color: #3182ce;
+  box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
+}
+
+.booking-coupon-btn {
+  background: #3182ce;
+  color: #ffffff;
+  padding: 0.5rem 1rem; /* Reduced padding for a more compact button */
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background 0.2s ease, transform 0.1s ease;
+  width: auto; /* Allow natural width based on content */
+}
+
+.booking-coupon-btn:hover {
+  background: #2b6cb0;
+  transform: translateY(-1px);
+}
+
+.booking-coupon-btn:active {
+  transform: translateY(0);
+}
+
+.booking-coupon-error {
+  color: #e53e3e;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+  text-align: right;
+}
+
+.booking-place-order-btn {
+  background: #2d3748;
+  color: #ffffff;
+  padding: 0.6rem 2rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  width: auto; /* Changed from 100% to auto */
+  display: block; /* Ensure it behaves as a block element */
+  margin-left: auto;
+  margin-right: auto; /* Center the button */
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.booking-place-order-btn:hover {
+  background: #4a5568;
+  transform: translateY(-1px);
+}
+
+.booking-place-order-btn:active {
+  transform: translateY(0);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .booking-container {
+    padding: 1rem;
+  }
+
+  .booking-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .booking-summary {
+    padding: 1rem;
+  }
+
+  .booking-coupon-input-wrapper {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+  }
+
+  .booking-coupon-input {
+    width: 100%;
+  }
+
+  .booking-coupon-btn {
+    width: 100%;
+    padding: 0.5rem;
+  }
+
+  .booking-place-order-btn {
+    width: 100%;
+    padding: 0.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .booking-header h1 {
+    font-size: 1.25rem;
+  }
+
+  .booking-summary-row {
+    font-size: 0.9rem;
+  }
+
+  .booking-grand-total {
+    font-size: 1rem;
+  }
+}

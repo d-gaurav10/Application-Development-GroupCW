@@ -1,95 +1,123 @@
-import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import axios from "axios";
-import jwt_decode from "jwt-decode";
+// src/pages/Login.jsx
+import React, { useState } from 'react'
+import { useNavigate, Link } from 'react-router-dom'
+import axios from 'axios'
+import { FiMail, FiLock } from 'react-icons/fi'
+import logo from '../assets/images/logo.png'
+import './Login.css'
 
 const Login = () => {
-  const [formData, setFormData] = useState({ email: "", password: "" });
-  const [error, setError] = useState("");
-  const navigate = useNavigate();
+  const [formData, setFormData] = useState({ email: '', password: '' })
+  const [error, setError] = useState('')
+  const [savePassword, setSavePassword] = useState(false)
+  const navigate = useNavigate()
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const handleChange = e => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
+  const handleSubmit = async e => {
+    e.preventDefault()
+    setError('')
 
     try {
-      const response = await axios.post("http://localhost:5117/api/auth/login", formData);
-      const { token } = response.data;
+      // call your API
+      const { data } = await axios.post(
+        'http://localhost:5117/api/auth/login',
+        formData
+      )
 
+      // data should be { token: string, userDetails: { id, fullName, email, role } }
+      const { token, userDetails } = data
       if (!token) {
-        setError("Login failed - no token received");
-        return;
+        setError('Login failed – no token returned')
+        return
       }
 
-      // Store token
-      localStorage.setItem("token", token);
+      // store JWT
+      localStorage.setItem('token', token)
 
-      // Decode token and check role
-      const decoded = jwt_decode(token);
-      const userRole = decoded[`http://schemas.microsoft.com/ws/2008/06/identity/claims/role`];
-      
-      console.log("User role:", userRole); // Debug log
+      // get role from the server payload
+      const role = userDetails.role
 
-      // Navigate based on role
-      if (userRole === "Admin") {
-        navigate("/admin");
-      } else if (userRole === "Staff" || userRole === "Member") {
-        navigate("/home");
-      } else {
-        setError("Unauthorized role");
-      }
+      // redirect based on role
+      if (role === 'Admin')      navigate('/admin')
+      else if (role === 'Member') navigate('/home')
+      else if (role === 'Staff')  navigate('/staff')
+      else setError('Unknown role – access denied')
+
     } catch (err) {
-      console.error("Login error:", err);
-      setError(err.response?.data?.message || "Login failed");
+      console.error('Login error:', err)
+      setError(err.response?.data?.message || 'Login failed')
     }
-  };
+  }
 
   return (
     <div className="login-wrapper">
       <div className="login-box">
-        <img src="/logo.png" alt="logo" className="logo" />
-        <h1 className="title">Login or Register</h1>
+        <img src={logo} alt="BookBazzar logo" className="login-logo" />
+        <h1 className="login-title">Login or Register</h1>
 
-        <form onSubmit={handleSubmit}>
-          <label>Email:</label>
-          <input
-            type="email"
-            name="email"
-            placeholder="Eg. johndoe@gmail.com"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-
-          <label>Password:</label>
-          <input
-            type="password"
-            name="password"
-            placeholder="Enter password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-
-          <div className="checkbox">
-            <input type="checkbox" /> Save Password
+        <form onSubmit={handleSubmit} className="login-form">
+          <label className="login-label">
+            <FiMail className="login-icon" />
+            Email:
+          </label>
+          <div className="login-input-group">
+            <FiMail className="input-icon" />
+            <input
+              type="email"
+              name="email"
+              placeholder="you@example.com"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              className="login-input"
+            />
           </div>
 
-          <button type="submit">Login</button>
-          {error && <p className="text-red-500">{error}</p>}
+          <label className="login-label">
+            <FiLock className="login-icon" />
+            Password:
+          </label>
+          <div className="login-input-group">
+            <FiLock className="input-icon" />
+            <input
+              type="password"
+              name="password"
+              placeholder="Enter password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+              className="login-input"
+            />
+          </div>
+
+          <div className="login-checkbox">
+            <input
+              type="checkbox"
+              id="savePassword"
+              checked={savePassword}
+              onChange={() => setSavePassword(p => !p)}
+            />
+            <label htmlFor="savePassword">Save Password</label>
+          </div>
+
+          <button type="submit" className="login-button">
+            Login
+          </button>
+          {error && <p className="login-error">{error}</p>}
         </form>
 
-        <div className="link-text">
-          I didn’t register yet, Click here to{" "}
-          <Link to="/register">Create New Account</Link>
-        </div>
+        <p className="login-footer">
+          Don’t have an account?{' '}
+          <Link to="/register" className="login-link">
+            Create one here
+          </Link>
+        </p>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default Login;

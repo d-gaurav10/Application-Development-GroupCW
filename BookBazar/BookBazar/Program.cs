@@ -1,9 +1,12 @@
 using BookBazzar.Data;
 using BookBazzar.Services;
+using BookBazzar.Hubs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.FileProviders;
 using System.Text;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,11 +17,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // Configure CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", policy =>
+    options.AddPolicy("AllowReact", policy =>
     {
-        policy.AllowAnyOrigin()
+        policy.WithOrigins("http://localhost:5173")  // Your React app's URL
               .AllowAnyMethod()
-              .AllowAnyHeader();
+              .AllowAnyHeader()
+              .AllowCredentials();
     });
 });
 
@@ -27,7 +31,6 @@ builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<BookService>();
 builder.Services.AddScoped<CartService>();
 builder.Services.AddScoped<OrderService>();
-builder.Services.AddScoped<FulfillmentService>();
 builder.Services.AddScoped<ReviewService>();
 builder.Services.AddScoped<WhitelistService>();
 builder.Services.AddScoped<AnnouncementService>();
@@ -37,6 +40,8 @@ builder.Services.AddScoped<AdminDashboardService>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
+        options.RequireHttpsMetadata = !builder.Environment.IsDevelopment();
+        options.SaveToken = true;
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
@@ -60,6 +65,11 @@ builder.Services.AddControllers()
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSignalR();
+
+builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<OrderService>();
+
 
 var app = builder.Build();
 
@@ -75,7 +85,11 @@ else
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+// Conditionally enable HTTPS redirection
+if (app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
 
 // Serve static files from wwwroot
 app.UseStaticFiles();
@@ -84,14 +98,25 @@ app.UseStaticFiles();
 app.UseRouting();
 
 // Security middleware
-app.UseCors("AllowAll");
+app.UseCors("AllowReact");
 app.UseAuthentication();
 app.UseAuthorization();
+
+// Serve static files from the "Uploads" folder with correct casing
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(builder.Environment.ContentRootPath, "uploads")),
+    RequestPath = "/uploads"  // Updated to match the casing in your frontend
+});
+
 
 // API endpoints
 app.MapControllers();
 
+app.MapHub<OrderHub>("/orderHub");
+
 // Fallback to React app for client-side routing
-app.MapFallbackToFile("index.html");
+app.MapFallbackToFile("index.html").AllowAnonymous();
 
 app.Run();

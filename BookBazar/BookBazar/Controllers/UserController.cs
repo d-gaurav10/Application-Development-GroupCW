@@ -58,27 +58,52 @@ namespace BookBazzar.Controllers
             });
         }
 
+
+        // ✅ Get own profile (for profile settings)
+    [HttpGet("profile")]
+    [Authorize]
+    public async Task<IActionResult> GetOwnProfile()
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (userId == null) return Unauthorized();
+
+        var user = await _context.Users.FindAsync(Guid.Parse(userId));
+        if (user == null) return NotFound();
+
+        return Ok(new {
+            fullName = user.FullName,
+            email = user.Email
+        });
+    }
+
         // ✅ Update own profile
-        [HttpPut("profile")]
-        [Authorize]
-        public async Task<IActionResult> UpdateOwnProfile([FromBody] UserRegisterDTO dto)
-        {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var user = await _context.Users.FindAsync(Guid.Parse(userId));
+       [HttpPut("profile")]
+[Authorize]
+public async Task<IActionResult> UpdateOwnProfile([FromBody] UpdateProfileDto dto)
+{
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    if (userId == null) return Unauthorized();
 
-            if (user == null) return NotFound();
+    var user = await _context.Users.FindAsync(Guid.Parse(userId));
+    if (user == null) return NotFound();
 
-            user.FullName = dto.FullName;
-            user.Email = dto.Email;
+    // Update name/email
+    user.FullName = dto.FullName;
 
-            if (!string.IsNullOrWhiteSpace(dto.Password))
-            {
-                user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password);
-            }
 
-            await _context.SaveChangesAsync();
-            return Ok(new { message = "Profile updated successfully" });
-        }
+    // Verify current password if changing
+    if (!string.IsNullOrWhiteSpace(dto.NewPassword))
+    {
+        // you may want to check dto.CurrentPassword matches the hash before allowing change
+        if (!BCrypt.Net.BCrypt.Verify(dto.CurrentPassword, user.PasswordHash))
+            return BadRequest(new { message = "Current password is incorrect" });
+
+        user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.NewPassword);
+    }
+
+    await _context.SaveChangesAsync();
+    return Ok(new { message = "Profile updated successfully" });
+}
 
         // ✅ Change user role (Admin only)
         [HttpPatch("{id}/role")]

@@ -30,19 +30,30 @@ namespace BookBazar.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<DateTime?>("EndTime")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<bool>("IsEnabled")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Message")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)");
 
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
@@ -72,8 +83,14 @@ namespace BookBazar.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<DateTime?>("DiscountEnd")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<decimal?>("DiscountPrice")
                         .HasColumnType("numeric");
+
+                    b.Property<DateTime?>("DiscountStart")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Format")
                         .IsRequired()
@@ -92,6 +109,9 @@ namespace BookBazar.Migrations
 
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
+
+                    b.Property<DateTime>("PublicationDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("PublisherId")
                         .HasColumnType("integer");
@@ -195,6 +215,29 @@ namespace BookBazar.Migrations
                             Id = 8,
                             Name = "Children"
                         });
+                });
+
+            modelBuilder.Entity("BookBazzar.Models.DiscountCode", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<decimal>("Discount")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DiscountCodes");
                 });
 
             modelBuilder.Entity("BookBazzar.Models.Order", b =>
@@ -441,7 +484,7 @@ namespace BookBazar.Migrations
             modelBuilder.Entity("BookBazzar.Models.OrderItem", b =>
                 {
                     b.HasOne("BookBazzar.Models.Book", "Book")
-                        .WithMany()
+                        .WithMany("OrderItems")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -460,7 +503,7 @@ namespace BookBazar.Migrations
             modelBuilder.Entity("BookBazzar.Models.Review", b =>
                 {
                     b.HasOne("BookBazzar.Models.Book", "Book")
-                        .WithMany()
+                        .WithMany("Reviews")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -493,6 +536,13 @@ namespace BookBazar.Migrations
                     b.Navigation("Book");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("BookBazzar.Models.Book", b =>
+                {
+                    b.Navigation("OrderItems");
+
+                    b.Navigation("Reviews");
                 });
 
             modelBuilder.Entity("BookBazzar.Models.Category", b =>

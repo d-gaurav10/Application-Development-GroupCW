@@ -55,5 +55,25 @@ namespace BookBazzar.Controllers
 
             return Ok(order);
         }
+
+                // ✅ DELETE: api/order/{id}
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> CancelOrder(int id)
+        {
+            var userId = GetUserId();
+            try
+            {
+                var result = await _orderService.CancelOrderAsync(id, userId);
+                if (!result) return NotFound(new { message = "Order not found or cannot be canceled." });
+
+                return Ok(new { message = "Order canceled successfully." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+
+        
     }
 }

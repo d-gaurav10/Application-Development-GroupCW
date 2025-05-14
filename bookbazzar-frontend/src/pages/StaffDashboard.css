@@ -1,0 +1,113 @@
+/* StaffDashboard.css */
+
+.staff-dashboard {
+  min-height: 100vh;
+  background: #f9fafb;
+  padding: 3rem 1rem;
+  font-family: sans-serif;
+}
+
+.staff-dashboard .container {
+  max-width: 60rem;
+  margin: 0 auto;
+}
+
+.staff-dashboard h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  text-align: center;
+  color: #111827;
+}
+
+.staff-dashboard p.subtitle {
+  text-align: center;
+  color: #4b5563;
+  margin-top: 0.5rem;
+}
+
+.grid-two {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+@media (min-width: 768px) {
+  .grid-two {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Card common */
+.card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Form styles */
+.order-form .form-group {
+  margin-bottom: 1.5rem;
+}
+.order-form .form-row {
+  display: flex;
+  gap: 0.5rem;
+}
+.order-form input[type="text"] {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  font-size: 1rem;
+}
+.order-form button,
+.order-form .btn {
+  background: #4f46e5;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.375rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.order-form button:disabled,
+.order-form .btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.order-form button:hover:not(:disabled),
+.order-form .btn:hover:not(:disabled) {
+  background: #4338ca;
+}
+
+/* Search button */
+.order-form .btn-search {
+  background: #e5e7eb;
+  color: #374151;
+}
+.order-form .btn-search:hover {
+  background: #d1d5db;
+}
+
+/* Pending Orders table */
+.orders-list {
+  overflow-x: auto;
+}
+.orders-list table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.orders-list th,
+.orders-list td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+}
+.orders-list th {
+  background: #f3f4f6;
+  font-weight: 600;
+  color: #374151;
+}
+.orders-list tr:last-child td {
+  border-bottom: none;
+}

@@ -17,5 +17,7 @@ namespace BookBazzar.DTOs
         [Required]
         [RegularExpression("^(Admin|Staff|Member)$", ErrorMessage = "Role must be Admin, Staff, or Member")]
         public string Role { get; set; }
+
+        
     }
 }

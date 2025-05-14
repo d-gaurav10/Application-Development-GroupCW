@@ -41,6 +41,17 @@ namespace BookBazzar.Controllers
             return Ok(added);
         }
 
+        // Add this new endpoint
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> UpdateQuantity(int id, [FromBody] UpdateQuantityDto dto)
+        {
+            var userId = GetUserId();
+            var updated = await _cartService.UpdateQuantityAsync(id, userId, dto.Quantity);
+            if (!updated) return NotFound();
+
+            return Ok(new { message = "Quantity updated." });
+        }
+
         // DELETE: api/cart/{id}
         [HttpDelete("{id}")]
         public async Task<IActionResult> RemoveFromCart(int id)

@@ -1,0 +1,124 @@
+/* Overlay dims the background */
+.create-book-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;            /* so container never touches viewport edges */
+  box-sizing: border-box;
+  z-index: 1000;
+}
+
+/* Modal container */
+.create-book-container {
+  position: relative;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  padding: 24px;
+  max-width: 780px;
+  width: 100%;
+  box-sizing: border-box;
+  height: 70%;
+  overflow-x: auto;
+}
+
+/* Close (×) button */
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  border: none;
+  background: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* Form title */
+.create-book-container h2 {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+/* Form group defaults */
+form {
+  display: flex;
+  flex-direction: column;
+}
+.form-group {
+  margin-bottom: 16px;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+}
+.form-group textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+/* Checkbox row */
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.checkbox-group label {
+  margin: 0;
+  font-weight: normal;
+}
+
+/* Submit button */
+.create-book-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #4f46e5;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.create-book-btn:hover {
+  background-color: #3730a3;
+}
+.create-book-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Responsive two‐column layout for larger screens */
+@media (min-width: 600px) {
+  form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 16px;
+  }
+
+  /* Make the text-area and cover-image inputs span both columns */
+  .form-group:nth-of-type(7),
+  .form-group:nth-of-type(8),
+  .form-group:nth-of-type(10),
+  .form-group:nth-of-type(11) {
+    grid-column: 1 / -1;
+  }
+}

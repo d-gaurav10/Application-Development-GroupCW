@@ -29,23 +29,37 @@ namespace BookBazzar.Services
         }
 
         public async Task<Review?> AddReviewAsync(Guid userId, ReviewDto dto)
-        {
-            if (!await CanUserReviewAsync(userId, dto.BookId) || await HasUserAlreadyReviewed(userId, dto.BookId))
-                return null;
+{
+    // Check if user has purchased and completed the order for this book
+    var canReview = await _context.Orders
+        .Include(o => o.Items)
+        .AnyAsync(o => 
+            o.UserId == userId && 
+            o.Status == "Completed" &&
+            o.Items.Any(i => i.BookId == dto.BookId));
 
-            var review = new Review
-            {
-                UserId = userId,
-                BookId = dto.BookId,
-                Rating = dto.Rating,
-                Comment = dto.Comment
-            };
+    if (!canReview) return null;
 
-            _context.Reviews.Add(review);
-            await _context.SaveChangesAsync();
-            return review;
-        }
+    // Check if user has already reviewed this book
+    var hasReviewed = await _context.Reviews
+        .AnyAsync(r => r.UserId == userId && r.BookId == dto.BookId);
 
+    if (hasReviewed) return null;
+
+    var review = new Review
+    {
+        UserId = userId,
+        BookId = dto.BookId,
+        Rating = dto.Rating,
+        Comment = dto.Comment,
+        CreatedAt = DateTime.UtcNow
+    };
+
+    _context.Reviews.Add(review);
+    await _context.SaveChangesAsync();
+
+    return review;
+}
         public async Task<IEnumerable<Review>> GetReviewsByBookAsync(int bookId)
         {
             return await _context.Reviews

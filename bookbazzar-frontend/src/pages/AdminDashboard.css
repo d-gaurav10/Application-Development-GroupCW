@@ -1,0 +1,301 @@
+:root {
+  --blue-dark: #0B1B4D;
+  --purple: #8C6FF7;
+  --orange: #FFA500;
+  --gray-light: #F3F4FF;
+  --gray-lighter: #E0E0E0;
+  --text-dark: #1F2A48;
+}
+
+.admin-dashboard {
+  padding: 20px;
+  background: #f0f2f5;
+  min-height: 100vh;
+  font-family: Inter, sans-serif;
+}
+
+.admin-header h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: var(--blue-dark);
+}
+
+/* Summary Cards */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+.summary-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.summary-card h2 {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 10px;
+}
+.summary-card p {
+  font-size: 32px;
+  color: #4f46e5;
+  font-weight: 600;
+}
+
+/* Chart */
+.chart-container {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 30px;
+}
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+.chart-header h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+.date-controls .react-datepicker-wrapper {
+  margin-left: 10px;
+}
+.date-picker {
+  padding: 6px 8px;
+  border: 1px solid var(--gray-lighter);
+  border-radius: 4px;
+}
+
+/* Books Management */
+.books-management {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 30px;
+}
+.books-management .bm-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+.btn-add {
+  background: #10b981;
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.btn-add:hover {
+  background: #059669;
+}
+.books-management table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.books-management th,
+.books-management td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--gray-lighter);
+}
+.books-management tbody tr:hover {
+  background: #f9fafb;
+}
+.btn-delete {
+  background: none;
+  border: none;
+  color: #ef4444;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* Low Stock & Top Rated */
+.low-stock,
+.top-rated {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 30px;
+}
+.low-stock h2,
+.top-rated h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--blue-dark);
+  margin-bottom: 10px;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.modal-content {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 380px;
+  width: 100%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.modal-content h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.modal-content p {
+  margin-bottom: 20px;
+  color: #6b7280;
+}
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.btn-cancel {
+  background: none;
+  border: 1px solid var(--gray-lighter);
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.btn-cancel:hover {
+  background: #f3f4f6;
+}
+.btn-confirm {
+  background: #ef4444;
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.btn-confirm:hover {
+  background: #dc2626;
+}
+/* Responsive */        
+@media (max-width: 768px) {
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+  .admin-header h1 {
+    font-size: 20px;
+  }
+  .summary-card p {
+    font-size: 24px;
+  }
+  .chart-container,
+  .books-management,
+  .low-stock,
+  .top-rated {
+    padding: 15px;
+  }
+}
+.admin-dashboard .books-management table {
+    font-size: 14px;
+  }
+  .admin-dashboard .books-management th,
+  .admin-dashboard .books-management td {
+    padding: 10px;
+  }
+    .admin-dashboard .books-management th {
+        background: #f3f4f6;
+    }
+    .admin-dashboard .books-management th {
+        font-weight: 600;
+    }           
+.admin-dashboard .books-management td {
+        color: #374151;
+    }   
+.admin-dashboard .books-management tbody tr:hover {
+        background: #e5e7eb;
+    }
+.admin-dashboard .books-management tbody tr:nth-child(even) {
+        background: #f9fafb;
+    }
+
+.admin-dashboard .books-management tbody tr:nth-child(odd) {
+        background: #f3f4f6;
+    }
+
+/* ...existing styles... */
+
+.user-management-section {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.user-management-section .section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.user-management-section h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.discount-management-section {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.discount-management-section h2 {
+  color: #333;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.discount-management-section h2::before {
+  content: "🏷️";
+}
+
+
+.announcement-management-section {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.announcement-management-section h2 {
+  color: #333;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.announcement-management-section h2::before {
+  content: "📢";
+}

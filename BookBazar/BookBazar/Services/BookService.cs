@@ -97,24 +97,31 @@ namespace BookBazzar.Services
             if (book == null) return false;
 
             var category = await _context.Categories
-                .FirstOrDefaultAsync(c => c.Name.ToLower() == dto.CategoryName.ToLower())
+                .FirstOrDefaultAsync(c => c.Name.ToLower() == dto.CategoryName.ToLower()) 
                 ?? new Category { Name = dto.CategoryName };
 
-            if (category.Id == 0)
-            {
-                _context.Categories.Add(category);
-                await _context.SaveChangesAsync();
-            }
-
             var publisher = await _context.Publishers
-                .FirstOrDefaultAsync(p => p.Name.ToLower() == dto.PublisherName.ToLower())
+                .FirstOrDefaultAsync(p => p.Name.ToLower() == dto.PublisherName.ToLower()) 
                 ?? new Publisher { Name = dto.PublisherName };
 
-            if (publisher.Id == 0)
+            book.CategoryId = category?.Id ?? 0;
+            book.PublisherId = publisher?.Id ?? 0;
+
+            if (dto.CoverImage != null)
             {
-                _context.Publishers.Add(publisher);
-                await _context.SaveChangesAsync();
+                var uploadPath = _config["FileStorage:ImageUploadPath"] 
+                    ?? throw new InvalidOperationException("Image upload path not configured.");
+
+                Directory.CreateDirectory(uploadPath);
+                var fileName = $"{Guid.NewGuid()}{Path.GetExtension(dto.CoverImage.FileName)}";
+                var filePath = Path.Combine(uploadPath, fileName);
+
+                using var stream = new FileStream(filePath, FileMode.Create);
+                await dto.CoverImage.CopyToAsync(stream);
+
+                book.CoverImage = fileName;
             }
+
 
             book.Title = dto.Title;
             book.Author = dto.Author;

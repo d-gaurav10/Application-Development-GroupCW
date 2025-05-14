@@ -19,7 +19,7 @@ namespace BookBazzar.Services
             _context = context;
             _config = config;
         }
-       public async Task<string> Register(UserRegisterDTO dto)
+ public async Task<string> Register(UserRegisterDTO dto)
 {
     // Check if the email already exists
     if (_context.Users.Any(u => u.Email == dto.Email))
@@ -84,8 +84,12 @@ namespace BookBazzar.Services
         new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64)
     };
 
-    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-    var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+   var key = _config["Jwt:Key"];
+if (string.IsNullOrEmpty(key))
+    throw new InvalidOperationException("JWT Key not configured.");
+
+var creds = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)), SecurityAlgorithms.HmacSha256);
+
 
     var token = new JwtSecurityToken(
         issuer: _config["Jwt:Issuer"],

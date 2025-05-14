@@ -1,92 +1,252 @@
-/* src/styles/Register.css */
 
-body {
-    background-color: #0B0E52;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-  }
-  
-  .register-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-  }
-  
+  /* Full-screen navy background */
+.register-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #071a52;
+  min-height: 100vh;
+  padding: 1rem;
+}
+
+/* White border container */
+.register-box {
+  background-color: #071a52;
+  border: 8px solid #ffffff;
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  color: #ffffff;
+  box-sizing: border-box;
+}
+
+/* Logo */
+.register-logo {
+  width: 80px;
+  margin-bottom: 1rem;
+}
+
+/* Title */
+.register-title {
+  font-size: 1.75rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Form layout */
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Labels with icons */
+.register-label {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.register-icon {
+  margin-right: 0.5rem;
+  font-size: 1.2rem;
+}
+
+/* Input group wrapper */
+.register-input-group {
+  position: relative;
+}
+
+.input-icon {
+  position: absolute;
+  top: 50%;
+  left: 0.75rem;
+  transform: translateY(-50%);
+  color: #bdbdbd;
+  opacity: 0.7;
+}
+
+.register-input {
+  width: 100%;
+  padding: 0.75rem 0.75rem 0.75rem 2.5rem;
+  border: 1px solid #dadada;
+  border-radius: 4px;
+  background: transparent;
+  color: #e8e8e8;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.register-input::placeholder {
+  color: #747474;
+}
+
+/* Checkbox */
+.register-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  justify-content: center;
+}
+
+.register-checkbox input {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Button */
+.register-button {
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  background-color: #ffffff;
+  color: #071a52;
+  font-weight: 600;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+}
+
+.register-button:hover {
+  background-color: #e6e6e6;
+}
+
+/* Error text */
+.register-error {
+  color: #ff6b6b;
+  margin-top: 0.5rem;
+}
+
+/* Footer link */
+.register-footer {
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.register-link {
+  color: #66b2ff;
+  text-decoration: underline;
+}
+.register-link:hover {
+  text-decoration: none;
+}
+.register-link:visited {
+  color: #66b2ff;
+}
+.register-link:active {
+  color: #66b2ff;
+}
+.register-link:focus {
+  outline: none;
+  text-decoration: underline;
+}
+.register-link:focus-visible {
+  outline: none;
+  text-decoration: underline;
+}
+/* Responsive styles */
+@media (max-width: 768px) {
   .register-box {
-    background-color: #0B0E52;
-    color: white;
-    padding: 40px 30px;
-    width: 100%;
-    max-width: 450px;
-    border: 4px solid white;
-    border-radius: 20px;
-    text-align: center;
+    padding: 1.5rem;
+  }
+
+  .register-title {
+    font-size: 1.5rem;
+  }
+
+  .register-input {
+    font-size: 0.9rem;
+  }
+}
+.register-button {
+    font-size: 0.9rem;
+  }
+
+@media (max-width: 480px) {
+  .register-box {
+    padding: 1rem;
+  }
+
+  .register-title {
+    font-size: 1.25rem;
+  }
+
+  .register-input {
+    font-size: 0.85rem;
+  }
+}
+.register-button {
+    font-size: 0.85rem;
+  }
+
+@media (min-width: 1200px) {
+  .register-box {
+    max-width: 500px;
+  }
+
+  .register-title {
+    font-size: 2rem;
+  }
+
+  .register-input {
+    font-size: 1.1rem;
+  }
+}
+
+.register-button {
+    font-size: 1.1rem;
+  }
+
+/* Responsive styles for larger screens */  
+@media (min-width: 1200px) {
+  .register-box {
+    max-width: 500px;
+  }
+
+  .register-title {
+    font-size: 2rem;
+  }
+
+  .register-input {
+    font-size: 1.1rem;
+  }
+}
+.register-button {
+    font-size: 1.1rem;
   }
   
-  .logo {
-    height: 50px;
-    margin: 0 auto 10px;
-  }
-  
-  .title {
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 25px;
-  }
-  
-  label {
-    display: block;
-    text-align: left;
-    margin-bottom: 4px;
-    font-weight: 500;
-    font-size: 14px;
-  }
-  
-  input,
-  select {
-    width: 100%;
-    padding: 10px 12px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-    border: 1px solid white;
-    font-size: 14px;
-  }
-  
-  .checkbox {
-    text-align: left;
-    font-size: 13px;
-    margin-top: 5px;
-    margin-bottom: 20px;
-  }
-  
-  button {
-    background-color: white;
-    color: #0B0E52;
-    border: none;
-    padding: 10px 0;
-    font-weight: bold;
-    width: 100%;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background 0.2s ease-in-out;
-  }
-  
-  button:hover {
-    background-color: #e5e5e5;
-  }
-  
-  .link-text {
-    margin-top: 20px;
-    font-size: 13px;
-    color: white;
-  }
-  
-  .link-text a {
-    color: #87cefa;
-    text-decoration: underline;
-    font-style: italic;
-  }
-  
+
+.register-input-group select {
+  width: 100%;
+  padding: 0.75rem 0.75rem 0.75rem 2.5rem;
+  border: 1px solid #dadada;
+  border-radius: 4px;
+  font-size: 1rem;
+  color: #878585;
+  background-color: transparent;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23878585' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1em;
+}
+
+.register-input-group select:focus {
+  outline: none;
+  border-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+}
+
+.register-input-group select:hover {
+  border-color: #ffffff;
+}
+
+.register-input-group select option {
+  background-color: #071a52;
+  color: #878585;
+}

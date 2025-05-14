@@ -114,3 +114,12 @@ D:\AD GP CW\BookBazar\BookBazar\obj\Debug\net8.0\refint\BookBazar.dll
 D:\AD GP CW\BookBazar\BookBazar\obj\Debug\net8.0\BookBazar.pdb
 D:\AD GP CW\BookBazar\BookBazar\obj\Debug\net8.0\BookBazar.genruntimeconfig.cache
 D:\AD GP CW\BookBazar\BookBazar\obj\Debug\net8.0\ref\BookBazar.dll
+D:\AD GP CW\BookBazar\BookBazar\obj\Debug\net8.0\BookBazar.sourcelink.json
+D:\AD GP CW\BookBazar\BookBazar\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\AD GP CW\BookBazar\BookBazar\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.Abstractions.dll
+D:\AD GP CW\BookBazar\BookBazar\bin\Debug\net8.0\Microsoft.Extensions.Hosting.Abstractions.dll
+D:\AD GP CW\BookBazar\BookBazar\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+D:\AD GP CW\BookBazar\BookBazar\bin\Debug\net8.0\Microsoft.Extensions.ObjectPool.dll
+D:\AD GP CW\BookBazar\BookBazar\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+D:\AD GP CW\BookBazar\BookBazar\bin\Debug\net8.0\Newtonsoft.Json.dll
+D:\AD GP CW\BookBazar\BookBazar\bin\Debug\net8.0\System.Net.WebSockets.WebSocketProtocol.dll

@@ -50,6 +50,21 @@ namespace BookBazzar.Services
             return existing;
         }
 
+
+        public async Task<bool> UpdateQuantityAsync(int cartItemId, Guid userId, int quantity)
+        {
+            if (quantity <= 0) return false;
+
+            var item = await _context.CartItems
+                .FirstOrDefaultAsync(c => c.Id == cartItemId && c.UserId == userId);
+
+            if (item == null) return false;
+
+            item.Quantity = quantity;
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
         public async Task<bool> RemoveCartItemAsync(int cartItemId, Guid userId)
         {
             var item = await _context.CartItems
